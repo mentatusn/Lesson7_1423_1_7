@@ -1,8 +1,11 @@
 package calculator.calulation.lesson7_1423_1_7;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -14,6 +17,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+
+import com.google.android.material.navigation.NavigationView;
 
 import java.util.List;
 import java.util.Set;
@@ -27,11 +32,42 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         initView();
         readSettings();
         initToolbar();
+        initDrawer(initToolbar());
     }
 
-    private void initToolbar() {
+    private Toolbar initToolbar() {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        return toolbar;
+    }
+
+    private void initDrawer(Toolbar toolbar) {
+        DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
+        // связываем   drawerLayout toolbar
+        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this,
+                drawerLayout,toolbar,R.string.add,R.string.app_name);
+        drawerLayout.addDrawerListener(actionBarDrawerToggle);
+        actionBarDrawerToggle.syncState();
+
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.action_main:
+                        showFragment(MainFragment.newInstance());
+                        break;
+                    case R.id.action_favorite:
+                        showFragment(FavoriteFragment.newInstance());
+                        break;
+                    case R.id.action_settings:
+                        showFragment(SettingsFragment.newInstance());
+                        break;
+                }
+                drawerLayout.closeDrawer(GravityCompat.START);
+                return false;
+            }
+        });
     }
 
 

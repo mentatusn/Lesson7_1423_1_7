@@ -2,4 +2,5 @@
 <resources>
     <dimen name="textSize">10sp</dimen>
     <dimen name="textSizeLabel">30sp</dimen>
+    <dimen name="header_height">200dp</dimen>
 </resources>

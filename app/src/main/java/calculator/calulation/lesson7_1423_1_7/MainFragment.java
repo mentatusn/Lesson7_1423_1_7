@@ -32,7 +32,7 @@ public class MainFragment extends Fragment {
                         switch (item.getItemId()){
                             case R.id.action_main:
                                 ((MainActivity)requireActivity()).showFragment(MainFragment.newInstance());
-                                return true; // TODO 1
+                                return true;
                                 //break;
                             case R.id.action_favorite:
                                 ((MainActivity)requireActivity()).showFragment(FavoriteFragment.newInstance());
