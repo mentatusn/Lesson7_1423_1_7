@@ -99,7 +99,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Settings.isBackIsRemove = sharedPreferences.getBoolean(Settings.IS_BACK_IS_REMOVE_FRAGMENT, false);
         Settings.isBackStack = sharedPreferences.getBoolean(Settings.IS_BACK_STACK_USED, false);
         Settings.isReplaceFragment = sharedPreferences.getBoolean(Settings.IS_REPLACE_FRAGMENT_USED, false);
-        Settings.isAddFragment = sharedPreferences.getBoolean(Settings.IS_ADD_FRAGMENT_USED, false);
+        // здесь была ошибка, isReplaceFragment и isAddFragment вначале всегда false, а значит мы и настрйоки открыть не можем
+        //получился замкнутый круг
+        //Settings.isAddFragment = sharedPreferences.getBoolean(Settings.IS_ADD_FRAGMENT_USED, false);
+        Settings.isAddFragment = !Settings.isReplaceFragment; // теперь хотя бы один пункт всегда будет включен
     }
 
     private void initView() {
